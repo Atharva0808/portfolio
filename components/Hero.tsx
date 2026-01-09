@@ -25,29 +25,35 @@ export const Hero = () => {
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = 0.5;
-            const playPromise = audioRef.current.play();
-            if (playPromise !== undefined) {
-                playPromise
-                    .then(() => {
-                        setIsPlaying(true);
-                    })
-                    .catch((error) => {
-                        console.log("Auto-play prevented:", error);
-                        const startAudio = () => {
-                            if (audioRef.current) {
-                                audioRef.current.play();
-                                setIsPlaying(true);
-                                document.removeEventListener("click", startAudio);
-                                document.removeEventListener("keydown", startAudio);
-                                document.removeEventListener("scroll", startAudio);
-                            }
-                        };
-                        document.addEventListener("click", startAudio);
-                        document.addEventListener("keydown", startAudio);
-                        document.addEventListener("scroll", startAudio);
-                    });
-            }
         }
+
+        const startAudio = () => {
+            if (audioRef.current) {
+                const playPromise = audioRef.current.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            setIsPlaying(true);
+                        })
+                        .catch((error) => {
+                            console.log("Auto-play prevented:", error);
+                        });
+                }
+                document.removeEventListener("click", startAudio);
+                document.removeEventListener("keydown", startAudio);
+                document.removeEventListener("scroll", startAudio);
+            }
+        };
+
+        document.addEventListener("click", startAudio);
+        document.addEventListener("keydown", startAudio);
+        document.addEventListener("scroll", startAudio);
+
+        return () => {
+            document.removeEventListener("click", startAudio);
+            document.removeEventListener("keydown", startAudio);
+            document.removeEventListener("scroll", startAudio);
+        };
     }, []);
 
     return (

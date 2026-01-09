@@ -16,7 +16,7 @@ export const Navbar = () => {
 
 const MobileNavbar = () => {
     return (
-        <div className="md:hidden fixed bottom-4 inset-x-0 z-50 mx-auto w-max">
+        <div className="md:hidden fixed top-4 inset-x-0 z-50 mx-auto w-max">
             <div className="flex items-center gap-5 px-5 py-2.5 bg-white/90 dark:bg-neutral-900/90 border border-neutral-200 dark:border-white/10 rounded-full shadow-xl backdrop-blur-xl">
                 <a href="#" aria-label="Home">
                     <Home className="size-5 text-neutral-600 dark:text-neutral-300" />
