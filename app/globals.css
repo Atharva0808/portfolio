@@ -88,7 +88,7 @@
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
@@ -96,10 +96,11 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #525252;
-  border-radius: 10px;
+  background-color: var(--muted-foreground);
+  border: 3px solid var(--background);
+  border-radius: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #737373;
+  background-color: var(--foreground);
 }

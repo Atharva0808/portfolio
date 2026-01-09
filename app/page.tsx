@@ -12,7 +12,6 @@ export default function Home() {
         <main className="min-h-screen bg-white dark:bg-black selection:bg-green-500/30 transition-colors duration-300">
             <Navbar />
             <Hero />
-
             <TechStack />
             <GithubActivity />
             <Projects />

@@ -10,7 +10,7 @@ export const Blogs = () => {
             <div className="max-w-4xl mx-auto">
                 <div className="flex flex-col items-start mb-16">
                     <h2 className="text-4xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-900 to-neutral-600 dark:from-white dark:to-neutral-400 mb-8 tracking-tighter pb-2">
-                        Writing
+                        Thoughts
                     </h2>
                     <p className="text-neutral-500 text-xl max-w-lg font-light leading-relaxed">
                         Reflections on design, engineering, and the spaces in between.
@@ -49,7 +49,7 @@ export const Blogs = () => {
 
                                             <div className="flex items-baseline justify-between gap-8">
                                                 <div className="max-w-xl">
-                                                    <h3 className="text-2xl font-medium text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300 mb-2">
+                                                    <h3 className="text-2xl font-medium text-neutral-900 dark:text-white transition-colors duration-300 mb-2">
                                                         {post.title}
                                                     </h3>
                                                     <p className="text-neutral-500 text-base font-light leading-relaxed line-clamp-2">

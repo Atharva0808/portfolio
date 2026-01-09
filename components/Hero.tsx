@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import ShimmerButton from "@/components/magicui/ShimmerButton";
 import { Download, Mail } from "lucide-react";
-import { TypewriterEffect } from "@/components/ui/TypewriterEffect";
+import { MultiTypewriter } from "@/components/ui/MultiTypewriter";
 import { useEffect, useRef, useState } from "react";
 
 export const Hero = () => {
@@ -96,49 +96,67 @@ export const Hero = () => {
                 {/* Split Heading: Static Intro + Typewriter Name */}
                 <div className="flex flex-wrap items-baseline gap-3 mb-6 text-3xl md:text-5xl font-bold">
                     <span className="text-neutral-600 dark:text-white">Hi, I&apos;m</span>
-                    <TypewriterEffect
-                        words={[
-                            {
-                                text: "Atharva",
-                                className: "text-neutral-900 dark:text-white font-bold",
-                            },
-                            {
-                                text: "Bamgude.",
-                                className: "text-neutral-900 dark:text-white font-bold",
-                            },
+                    <MultiTypewriter
+                        sequences={[
+                            [
+                                { text: "Atharva", className: "text-neutral-900 dark:text-white font-bold" },
+                                { text: "Bamgude.", className: "text-neutral-900 dark:text-white font-bold" },
+                            ],
+                            [
+                                { text: "AIML", className: "text-neutral-900 dark:text-white font-bold" },
+                                { text: "Undergrad.", className: "text-neutral-900 dark:text-white font-bold" },
+                            ],
                         ]}
-                        className="!text-3xl md:!text-5xl !leading-tight"
+                        className="!text-3xl md:!text-5xl !leading-tight text-left inline-block"
                         cursorClassName="bg-neutral-900 dark:bg-white h-7 md:h-12"
                     />
                 </div>
 
-                <motion.h2
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 0.5 }}
-                    className="text-xl md:text-2xl text-neutral-600 dark:text-white font-medium max-w-2xl leading-relaxed mb-12"
+                    className="max-w-3xl mb-6 space-y-6"
                 >
-                    A Full Stack web developer. <br />
-                    I build interactive web apps using
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-sm font-medium text-white align-middle mx-1.5 hover:bg-neutral-800 transition-colors mx-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" className="w-4 h-4" alt="TS" />
-                        TypeScript
-                    </span>,
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-sm font-medium text-white align-middle mx-1.5 hover:bg-neutral-800 transition-colors mx-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="w-4 h-4" alt="React" />
-                        React
-                    </span>,
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-sm font-medium text-white align-middle mx-1.5 hover:bg-neutral-800 transition-colors mx-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" className="w-4 h-4 invert" alt="Next.js" />
-                        Next.js
-                    </span>
-                    and
-                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-neutral-900 border border-neutral-800 text-sm font-medium text-white align-middle mx-1.5 hover:bg-neutral-800 transition-colors mx-1">
-                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className="w-4 h-4" alt="PostgreSQL" />
-                        PostgreSQL
-                    </span>.
-                    With a focus on UI design. Enthusiastic about <span className="font-semibold text-neutral-900 dark:text-white underline decoration-neutral-400/30 decoration-2 underline-offset-4">Agentic AI</span>.
-                </motion.h2>
+                    <h2 className="text-xl md:text-2xl text-neutral-600 dark:text-white font-medium">
+                        An AI/ML Engineer & Full-Stack Developer.
+                    </h2>
+
+                    <p className="text-lg text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                        I design and build intelligent, production-ready systems using:
+                    </p>
+
+                    <div className="flex flex-wrap gap-2.5">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm font-medium text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors cursor-default">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" className="w-4 h-4" alt="Python" />
+                            Python
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm font-medium text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors cursor-default">
+                            Machine Learning
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm font-medium text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors cursor-default">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" className="w-4 h-4" alt="TS" />
+                            TypeScript
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm font-medium text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors cursor-default">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" className="w-4 h-4" alt="React" />
+                            React
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm font-medium text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors cursor-default">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" className="w-4 h-4 dark:invert" alt="Next.js" />
+                            Next.js
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-sm font-medium text-neutral-900 dark:text-white hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors cursor-default">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" className="w-4 h-4" alt="PostgreSQL" />
+                            PostgreSQL
+                        </span>
+                    </div>
+
+                    <p className="text-lg text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                        with a strong focus on scalable backend architecture and clean UI. <br />
+                        Passionate about <span className="text-neutral-900 dark:text-white font-semibold">Agentic AI</span>, <span className="text-neutral-900 dark:text-white font-semibold">Gen AI</span>, and real-world ML applications.
+                    </p>
+                </motion.div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

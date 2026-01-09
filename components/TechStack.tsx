@@ -77,7 +77,7 @@ export const TechStack = () => {
 
 const Marquee = ({ items, direction, speed }: { items: typeof row1, direction: "left" | "right", speed: string }) => {
     return (
-        <div className="relative flex w-full overflow-hidden mask-image-gradient">
+        <div className="relative flex w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             <div
                 className="flex shrink-0 gap-6 py-4 min-w-full animate-scroll"
                 style={{
@@ -88,7 +88,7 @@ const Marquee = ({ items, direction, speed }: { items: typeof row1, direction: "
                 {[...items, ...items, ...items, ...items, ...items, ...items].map((tech, i) => (
                     <div
                         key={i}
-                        className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 dark:bg-neutral-900/5 border border-neutral-200/50 dark:border-white/10 backdrop-blur-md shadow-sm"
+                        className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-white/5 dark:bg-neutral-900/5 border border-neutral-200/50 dark:border-white/10 backdrop-blur-md shadow-sm transition-all duration-300 hover:scale-110 hover:bg-white/10 dark:hover:bg-neutral-800/50 hover:border-neutral-300 dark:hover:border-white/30 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)] cursor-pointer"
                     >
                         <div className="w-6 h-6 relative">
                             <tech.icon className="w-full h-full" />

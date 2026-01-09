@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Briefcase, Calendar, MapPin, ArrowRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export const Experience = () => {
     return (
@@ -55,14 +56,24 @@ export const Experience = () => {
                             </ul>
 
                             <div className="flex flex-wrap gap-2">
-                                {exp.tech.map((tech) => (
-                                    <span
-                                        key={tech}
-                                        className="px-2 py-0.5 rounded-md bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 text-[11px] font-medium text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
-                                    >
-                                        {tech}
-                                    </span>
-                                ))}
+                                {exp.tech.map((tech) => {
+                                    const techInfo = techData[tech] || { icon: "", color: "#808080" };
+                                    return (
+                                        <span
+                                            key={tech}
+                                            className="group/tag flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-all duration-300 hover:bg-white/10 hover:text-white pr-4 cursor-default hover:scale-105"
+                                        >
+                                            {techInfo.icon && (
+                                                <img
+                                                    src={techInfo.icon}
+                                                    alt={tech}
+                                                    className={cn("w-3.5 h-3.5 transition-transform group-hover/tag:scale-110", tech === "Next.js" && "dark:invert")}
+                                                />
+                                            )}
+                                            {tech}
+                                        </span>
+                                    );
+                                })}
                             </div>
                         </motion.div>
                     ))}
@@ -70,6 +81,22 @@ export const Experience = () => {
             </div>
         </section>
     );
+};
+
+const techData: Record<string, { icon: string, color: string }> = {
+    "Python": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg", color: "#3776AB" },
+    "FastAPI": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg", color: "#009688" },
+    "LangChain": { icon: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg", color: "#ffffff" }, // Placeholder/Generic
+    "OpenAI": { icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg", color: "#10A37F" },
+    "Docker": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg", color: "#2496ED" },
+    "Next.js": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg", color: "#ffffff" },
+    "Gemini API": { icon: "https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg", color: "#8E75B2" },
+    "Twilio": { icon: "https://cdn.iconscout.com/icon/free/png-256/free-twilio-logo-icon-download-in-svg-png-gif-file-formats--technology-social-media-company-brand-vol-7-pack-logos-icons-2945166.png", color: "#F22F46" },
+    "PostgreSQL": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", color: "#4169E1" },
+    "GCP": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", color: "#4285F4" },
+    "Cloud Run": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", color: "#4285F4" },
+    "BigQuery": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", color: "#4285F4" },
+    "Vertex AI": { icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg", color: "#4285F4" },
 };
 
 const experiences = [

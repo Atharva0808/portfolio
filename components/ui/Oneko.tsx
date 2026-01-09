@@ -12,7 +12,7 @@ export const Oneko = () => {
     const idleTime = useRef(0);
     const idleAnimation = useRef<string | null>(null);
     const idleAnimationFrame = useRef(0);
-    const nekoSpeed = 10;
+    const nekoSpeed = 4;
 
     // Sprite config
     const spriteSets: { [key: string]: number[][] } = {

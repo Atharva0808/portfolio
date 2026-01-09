@@ -58,9 +58,9 @@ export const GithubActivity = () => {
                         </p>
                     </div>
 
-                    <div className="flex flex-col items-start gap-2 bg-neutral-100 dark:bg-neutral-900/50 py-3 px-6 rounded-full border border-neutral-200 dark:border-white/10 shadow-sm">
-                        <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-300">
-                            <span>Currently coding in</span>
+                    <div className="flex flex-col items-start gap-2 bg-white/60 dark:bg-black/40 backdrop-blur-xl py-2.5 px-5 rounded-full border border-neutral-200/50 dark:border-white/10 shadow-sm transition-transform hover:scale-[1.01] active:scale-[0.99] duration-300 ease-out">
+                        <div className="flex items-center gap-2.5 text-[13px] text-neutral-600 dark:text-neutral-300 font-medium tracking-wide">
+                            <span className="opacity-80">Currently coding in</span>
                             <svg viewBox="0 0 24 24" className="w-5 h-5 flex-shrink-0" aria-label="Cursor Logo">
                                 <path d="M21 7.5L12 2.5L3 7.5L12 12.5L21 7.5Z" fill="#FFFFFF" className="dark:fill-white fill-black" />
                                 <path d="M21 7.5V17.5L12 22.5V12.5L21 7.5Z" fill="#A3A3A3" />

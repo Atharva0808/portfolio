@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Oneko } from "../components/ui/Oneko";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
@@ -30,6 +31,7 @@ export default function RootLayout({
         >
           <Oneko />
           {children}
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

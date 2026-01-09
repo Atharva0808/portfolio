@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { Github, ExternalLink, ArrowRight, Cpu, Layout, Server, FileText, Database } from "lucide-react";
 import Link from "next/link";
+
+import ShimmerButton from "@/components/magicui/ShimmerButton";
 import { cn } from "@/lib/utils";
 
 export const Projects = () => {
@@ -69,7 +71,7 @@ export const Projects = () => {
                             {/* Content Section */}
                             <div className="w-full md:w-[45%] flex flex-col items-start relative z-10">
                                 <div className="flex items-center gap-3 mb-4">
-                                    <div className={`w-8 h-[2px] bg-gradient-to-r ${item.gradient}`} />
+                                    <div className="w-8 h-[2px] bg-neutral-900 dark:bg-white" />
                                     <span className="text-xs font-bold tracking-widest text-neutral-500 uppercase">
                                         {item.category}
                                     </span>
@@ -85,15 +87,26 @@ export const Projects = () => {
 
                                 <div className="flex flex-wrap gap-2 mb-10">
                                     {item.stack.map((tech, idx) => (
-                                        <span key={idx} className="px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-800 text-xs font-medium text-neutral-600 dark:text-neutral-300">
+                                        <span key={idx} className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 backdrop-blur-md text-xs font-medium text-neutral-600 dark:text-neutral-300 transition-colors hover:bg-white/10 hover:text-white pr-4">
+                                            {techIcons[tech] && (
+                                                <img
+                                                    src={techIcons[tech]}
+                                                    alt={tech}
+                                                    className={cn("w-3.5 h-3.5", tech === "Next.js" && "dark:invert")}
+                                                />
+                                            )}
                                             {tech}
                                         </span>
                                     ))}
                                 </div>
 
                                 <div className="flex items-center gap-6">
-                                    <Link href={item.links.demo} className="group flex items-center gap-2 px-7 py-3.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-black font-bold text-sm tracking-wide hover:opacity-90 hover:scale-105 active:scale-95 transition-all shadow-xl hover:shadow-2xl">
-                                        Live Demo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    <Link href={item.links.demo}>
+                                        <ShimmerButton className="shadow-2xl" background="#000000" shimmerColor="#ffffff">
+                                            <span className="whitespace-pre-wrap text-center text-sm font-bold leading-none tracking-tight text-white lg:text-base flex items-center gap-2">
+                                                Live Demo <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                            </span>
+                                        </ShimmerButton>
                                     </Link>
                                     <Link href={item.links.github} className="group flex items-center gap-2 text-neutral-500 hover:text-neutral-900 dark:hover:text-white font-medium transition-colors text-sm">
                                         <Github className="w-4 h-4 group-hover:rotate-12 transition-transform" /> Source
@@ -106,6 +119,26 @@ export const Projects = () => {
             </div>
         </section>
     );
+};
+
+const techIcons: Record<string, string> = {
+    "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+    "Python": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    "TensorFlow": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+    "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+    "Redis": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+    "Express": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+    "Puppeteer": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/puppeteer/puppeteer-original.svg",
+    "FastAPI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+    "OpenAI": "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg", // Fallback wiki
+    "Pandas": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+    "Vision API": "https://www.gstatic.com/devrel-devsite/prod/va2f8832d201c1071427515b6377312ec704944d1566f06057a6217462615456f/cloud/images/cloud-logo.svg", // Google Cloud generic
+    "Telegram API": "https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg",
+    "Cron": "https://cdn-icons-png.flaticon.com/512/9324/9324419.png", // Generic clock?
+    "OCR": "https://cdn-icons-png.flaticon.com/512/2643/2643507.png", // Generic scan
+    "BeautifulSoup": "https://pypi.org/static/images/logo-small.2a411bc6.svg", // PyPi logo? or generic
 };
 
 const items = [
