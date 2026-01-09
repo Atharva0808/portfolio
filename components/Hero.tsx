@@ -57,7 +57,7 @@ export const Hero = () => {
     }, []);
 
     return (
-        <div className="min-h-screen w-full flex flex-col justify-center px-6 md:px-20 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300">
+        <div className="min-h-screen w-full flex flex-col pt-32 md:pt-40 px-6 md:px-20 relative overflow-hidden bg-white dark:bg-black transition-colors duration-300">
             {/* Background Grid */}
             <div className="absolute inset-0 bg-grid-black/[0.02] dark:bg-grid-white/[0.02] -z-10" />
             <div className="max-w-4xl w-full z-10 flex flex-col items-start mx-auto">
