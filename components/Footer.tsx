@@ -3,7 +3,7 @@
 export const Footer = () => {
     return (
         <footer className="py-12 px-6 bg-white dark:bg-black transition-colors duration-300 relative overflow-hidden">
-            <div className="max-w-7xl mx-auto flex flex-col h-[50vh] justify-between">
+            <div className="max-w-7xl mx-auto flex flex-col h-[50vh] md:portrait:h-auto md:portrait:py-20 justify-between">
 
                 {/* Center: Giant CTA */}
                 <div className="flex-1 flex items-center justify-center">
