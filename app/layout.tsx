@@ -11,7 +11,7 @@ const outfit = Outfit({ subsets: ["latin"], variable: "--font-heading" });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
-  title: "Atharva Bamgude | AIML Engineer & Full-Stack Developer",
+  title: "Atharva",
   description: "Building production-grade LLM systems and scalable backends.",
 };
 
