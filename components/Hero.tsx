@@ -116,13 +116,13 @@ export const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1, duration: 0.5 }}
-                    className="max-w-3xl mb-6 space-y-6"
+                    className="max-w-3xl mb-6 space-y-3.5"
                 >
                     <h2 className="text-xl md:text-2xl text-neutral-600 dark:text-white font-medium">
                         An AI/ML Engineer & Full-Stack Developer.
                     </h2>
 
-                    <p className="text-lg text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                    <p className="text-lg text-neutral-500 dark:text-neutral-400 leading-snug">
                         I design and build intelligent, production-ready systems using:
                     </p>
 
@@ -152,7 +152,7 @@ export const Hero = () => {
                         </span>
                     </div>
 
-                    <p className="text-lg text-neutral-500 dark:text-neutral-400 leading-relaxed">
+                    <p className="text-lg text-neutral-500 dark:text-neutral-400 leading-snug">
                         with a strong focus on scalable backend architecture and clean UI. <br />
                         Passionate about <span className="text-neutral-900 dark:text-white font-semibold">Agentic AI</span>, <span className="text-neutral-900 dark:text-white font-semibold">Gen AI</span>, and real-world ML applications.
                     </p>
