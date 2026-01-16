@@ -5,46 +5,76 @@ import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
-// Generate fake data for the last 365 days
-const generateData = () => {
-    const data = [];
-    const now = new Date();
-    for (let i = 365; i >= 0; i--) {
-        const date = new Date(now);
-        date.setDate(date.getDate() - i);
-        const dateString = date.toISOString().split("T")[0];
 
-        // Realistic contribution pattern mimics developer activity
-        const dayOfWeek = date.getDay(); // 0 is Sunday, 6 is Saturday
-        let isWeekend = dayOfWeek === 0 || dayOfWeek === 6;
-
-        let count = 0;
-        const random = Math.random();
-
-        // More active on weekdays
-        if (!isWeekend) {
-            if (random > 0.2) count = Math.floor(Math.random() * 15) + 1; // 80% chance of contribution
-            if (random > 0.8) count = Math.floor(Math.random() * 25) + 5; // Bursts
-        } else {
-            if (random > 0.6) count = Math.floor(Math.random() * 10) + 1; // Less likely on weekends
-        }
-
-        data.push({
-            date: dateString,
-            count,
-            level: count === 0 ? 0 : count < 3 ? 1 : count < 8 ? 2 : count < 15 ? 3 : 4,
-        });
-    }
-    return data;
-};
 export const GithubActivity = () => {
     const { theme } = useTheme();
     const [data, setData] = useState<any[]>([]);
-    const [mounted, setMounted] = useState(false);
+    const [totalContributions, setTotalContributions] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [currentRepo, setCurrentRepo] = useState<string | null>(null);
+    const [lastEvent, setLastEvent] = useState<string | null>(null);
+    const [repoLink, setRepoLink] = useState<string | null>(null);
+
     useEffect(() => {
-        setData(generateData());
-        setMounted(true);
+        const fetchData = async () => {
+            try {
+                // Fetch contribution graph data
+                const currentYear = new Date().getFullYear();
+                const contribResponse = await fetch(`https://github-contributions-api.jogruber.de/v4/Atharva0808?y=${currentYear}`);
+                const contribJson = await contribResponse.json();
+
+                if (contribJson.contributions) {
+                    setData(contribJson.contributions);
+                    const total = contribJson.contributions.reduce((acc: number, curr: any) => acc + curr.count, 0);
+                    setTotalContributions(total);
+                }
+
+                // Fetch latest events for "Currently working on"
+                const eventsResponse = await fetch('https://api.github.com/users/Atharva0808/events/public?per_page=5');
+                const eventsJson = await eventsResponse.json();
+
+                if (Array.isArray(eventsJson) && eventsJson.length > 0) {
+                    // Find the first PushEvent or CreateEvent to show active work
+                    const activeEvent = eventsJson.find((e: any) => e.type === 'PushEvent' || e.type === 'CreateEvent') || eventsJson[0];
+
+                    if (activeEvent) {
+                        // repo.name is "Atharva0808/repo-name" -> we want just "repo-name" usually, or full is fine
+                        const fullName = activeEvent.repo.name;
+                        const simpleName = fullName.split('/')[1] || fullName;
+                        setCurrentRepo(simpleName);
+                        setRepoLink(`https://github.com/${fullName}`);
+
+                        if (activeEvent.type === 'PushEvent' && activeEvent.payload.commits && activeEvent.payload.commits.length > 0) {
+                            setLastEvent(activeEvent.payload.commits[activeEvent.payload.commits.length - 1].message);
+                        } else {
+                            setLastEvent(activeEvent.type === 'WatchEvent' ? 'Starred a repo' : 'Active on GitHub');
+                        }
+                    }
+                }
+
+            } catch (error) {
+                console.error("Failed to fetch GitHub data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
     }, []);
+
+    // Determine color scheme based on current theme, defaulting to dark if undefined
+    const colorScheme = theme === 'light' ? 'light' : 'dark';
+
+    // Calculate date range text
+    const startDate = data.length > 0 ? new Date(data[0].date) : null;
+    const endDate = data.length > 0 ? new Date(data[data.length - 1].date) : null;
+
+    const dateRangeText = startDate && endDate
+        ? startDate.getFullYear() === endDate.getFullYear()
+            ? `in ${startDate.getFullYear()}`
+            : `in ${startDate.getFullYear()} - ${endDate.getFullYear()}`
+        : "in the last year";
+
     return (
         <section className="py-20 px-6 bg-white dark:bg-black transition-colors duration-300">
             <div className="max-w-4xl mx-auto">
@@ -54,24 +84,45 @@ export const GithubActivity = () => {
                             GitHub Activity
                         </h2>
                         <p className="text-neutral-500 dark:text-neutral-400 text-lg">
-                            <span className="text-black dark:text-white font-bold">1,897</span> contributions in the last year
+                            <span className="text-black dark:text-white font-bold">
+                                {loading ? "..." : totalContributions.toLocaleString()}
+                            </span> contributions {dateRangeText}
                         </p>
                     </div>
 
-                    <div className="flex flex-col items-start gap-2 bg-white/60 dark:bg-black/40 backdrop-blur-xl py-2.5 px-5 rounded-full border border-neutral-200/50 dark:border-white/10 shadow-sm transition-transform hover:scale-[1.01] active:scale-[0.99] duration-300 ease-out">
-                        <div className="flex items-center gap-2.5 text-[13px] text-neutral-600 dark:text-neutral-300 font-medium tracking-wide">
-                            <span className="opacity-80">Currently coding in</span>
-                            <svg viewBox="0 0 24 24" className="w-5 h-5 flex-shrink-0" aria-label="Cursor Logo">
-                                <path d="M21 7.5L12 2.5L3 7.5L12 12.5L21 7.5Z" fill="#FFFFFF" className="dark:fill-white fill-black" />
-                                <path d="M21 7.5V17.5L12 22.5V12.5L21 7.5Z" fill="#A3A3A3" />
-                                <path d="M3 17.5L12 12.5V22.5L3 17.5Z" fill="#737373" />
-                                <path d="M3 7.5L12 12.5L3 17.5V7.5Z" fill="#e5e5e5" className="dark:fill-white fill-black" />
-                            </svg>
-                            <span className="font-bold text-black dark:text-white">Cursor</span>
-                            <span className="text-neutral-400">|</span>
-                            <span>Thinking & coding...</span>
+                    {currentRepo ? (
+                        <a href={repoLink || "#"} target="_blank" rel="noopener noreferrer" className="mr-6 group flex items-center gap-2.5 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-md py-1.5 px-3 rounded-full border border-neutral-200 dark:border-white/10 shadow-sm hover:shadow-md hover:border-neutral-300 dark:hover:border-neutral-700 transition-all duration-300 hover:-translate-y-0.5">
+                            <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                            </span>
+
+                            <div className="flex items-center gap-2 text-xs">
+                                <span className="text-neutral-600 dark:text-neutral-400 font-medium">Working on</span>
+
+                                <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/5 group-hover:bg-neutral-200 dark:group-hover:bg-white/10 transition-colors">
+                                    <svg viewBox="0 0 24 24" className="w-3 h-3 fill-current text-black dark:text-white" aria-hidden="true">
+                                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.05-.015-2.055-3.33 .72-4.035-1.605-4.035-1.605-.54-1.38-1.335-1.755-1.335-1.755-1.087-.75.075-.735.075-.735 1.2.09 1.83 1.245 1.83 1.245 1.065 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405 1.02 0 2.04.135 3 .405 2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.285 0 .315.225.69.84.57A12.005 12.005 0 0024 12c0-6.63-5.37-12-12-12z" />
+                                    </svg>
+                                    <span className="font-semibold text-black dark:text-white">{currentRepo}</span>
+                                </div>
+
+                                {lastEvent && (
+                                    <span className="hidden md:flex items-center gap-1.5 text-[10px] text-neutral-400">
+                                        <span className="w-0.5 h-0.5 rounded-full bg-neutral-400"></span>
+                                        <span className="truncate max-w-[150px]" title={lastEvent}>{lastEvent}</span>
+                                    </span>
+                                )}
+                            </div>
+                        </a>
+                    ) : (
+                        <div className="flex items-center gap-2 bg-white/60 dark:bg-neutral-900/60 backdrop-blur-md py-1.5 px-3 rounded-full border border-neutral-200 dark:border-white/5 border-dashed">
+                            <span className="relative flex h-2 w-2">
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-neutral-400"></span>
+                            </span>
+                            <span className="text-xs text-neutral-500 font-medium">Fetching status...</span>
                         </div>
-                    </div>
+                    )}
                 </div>
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -79,14 +130,14 @@ export const GithubActivity = () => {
                     viewport={{ once: true }}
                     className="flex justify-center text-neutral-400"
                 >
-                    {data.length > 0 && (
+                    {!loading && data.length > 0 && (
                         <ActivityCalendar
                             data={data}
                             theme={{
-                                light: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
+                                light: ["#e0e0e0", "#9be9a8", "#40c463", "#30a14e", "#216e39"],
                                 dark: ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"],
                             }}
-                            colorScheme="dark"
+                            colorScheme={colorScheme as "light" | "dark"}
                             blockSize={12}
                             blockMargin={4}
                             fontSize={12}
