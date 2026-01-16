@@ -35,26 +35,33 @@ export const Footer = () => {
             <div className="max-w-7xl mx-auto flex flex-col min-h-[50vh] md:portrait:min-h-0 md:portrait:py-20 justify-between">
 
                 {/* Center: Giant CTA */}
-                <div className="flex-1 flex flex-col items-center justify-center gap-8 pb-12">
+                <div className="flex-1 flex flex-col items-center justify-center gap-8 pb-12 relative z-50">
                     <a
-                        href="mailto:bamgudeatharva@gmail.com"
-                        className="group relative inline-block cursor-pointer"
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=bamgudeatharva@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative inline-block cursor-pointer z-50"
                     >
                         <h2 className="text-[9vw] md:text-[8vw] font-bold leading-[0.8] tracking-tighter text-neutral-900 dark:text-white text-center">
                             LET&apos;S WORK <br /> TOGETHER
                         </h2>
                     </a>
 
-                    <a href="mailto:bamgudeatharva@gmail.com">
-                        <ShimmerButton className="shadow-2xl" background="#000000" shimmerColor="#ffffff">
-                            <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base flex items-center gap-3">
-                                <div className="w-9 h-9 rounded-full overflow-hidden border border-white/20">
-                                    <img src="/profile.png" alt="Avatar" className="w-full h-full object-cover object-[center_10%] scale-110" />
-                                </div>
-                                Contact
-                            </span>
-                        </ShimmerButton>
-                    </a>
+                    <ShimmerButton
+                        href="https://mail.google.com/mail/?view=cm&fs=1&to=bamgudeatharva@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="shadow-2xl z-50"
+                        background="#000000"
+                        shimmerColor="#ffffff"
+                    >
+                        <span className="whitespace-pre-wrap text-center text-sm font-medium leading-none tracking-tight text-white lg:text-base flex items-center gap-3">
+                            <div className="w-9 h-9 rounded-full overflow-hidden border border-white/20">
+                                <img src="/profile.png" alt="Avatar" className="w-full h-full object-cover object-[center_10%] scale-110" />
+                            </div>
+                            Contact
+                        </span>
+                    </ShimmerButton>
                 </div>
 
                 {/* Bottom: Meta & Socials */}
